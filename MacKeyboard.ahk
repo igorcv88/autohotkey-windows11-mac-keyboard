@@ -18,14 +18,14 @@ SetTitleMatchMode 2
 SendMode Input
 
 ; --------------------------------------------------------------
-; Mac-like screenshots in Windows (requires Windows 10 Snip & Sketch)
+; Mac-like screenshots in Windows (requires Windows 11 Snipping Tool)
 ; --------------------------------------------------------------
 
 ; Capture entire screen with CMD/WIN + SHIFT + 3
-#+3::send #{PrintScreen}
+#3::SendInput, #{PrintScreen}
 
 ; Capture portion of the screen with CMD/WIN + SHIFT + 4
-#+4::#+s
+#4::SendInput {PrintScreen}
 
 ; --------------------------------------------------------------
 ; media/function keys all mapped to the right option key
