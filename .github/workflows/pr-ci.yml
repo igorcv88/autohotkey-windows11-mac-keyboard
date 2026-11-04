@@ -1,0 +1,27 @@
+name: Pull request checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Confirm AutoHotkey script is present
+        run: test -s MacKeyboard.ahk
+      - name: Check committed PR changes for whitespace errors
+        env:
+          PR_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if [ -n "$PR_BASE_SHA" ]; then
+            git diff --check "$PR_BASE_SHA" HEAD
+          else
+            git diff --check HEAD~1 HEAD
+          fi
